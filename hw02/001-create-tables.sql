@@ -1,3 +1,4 @@
+-- Create tables with primary keys
 CREATE TABLE orders (
     order_id         SERIAL       NOT NULL,
     order_date       DATE         NOT NULL,
@@ -14,7 +15,7 @@ ALTER TABLE ONLY orders
 
 CREATE TABLE products (
     product_id    SERIAL   NOT NULL,
-    product_name  INTEGER  NOT NULL,
+    product_name  TEXT     NOT NULL,
     category_id   INTEGER  NOT NULL,
     description   TEXT     NOT NULL,
     weight        REAL,
@@ -83,8 +84,8 @@ CREATE TABLE clients (
     contacts     VARCHAR(128)  NOT NULL,
     is_active    BOOLEAN       NOT NULL
 );
-ALTER TABLE ONLY managers
-    ADD CONSTRAINT managers_pk PRIMARY KEY (manager_id);
+ALTER TABLE ONLY clients
+    ADD CONSTRAINT clients_pk PRIMARY KEY (client_id);
 
 CREATE TABLE deliveries (
     delivery_id    SERIAL       NOT NULL,
@@ -97,23 +98,22 @@ CREATE TABLE deliveries (
 ALTER TABLE ONLY deliveries
     ADD CONSTRAINT deliveries_pk PRIMARY KEY (delivery_id);
 
+-- Create foreign keys
 ALTER TABLE orders
-    ADD CONSTRAINT orders_fk0 FOREIGN KEY (order_id) REFERENCES orders_products(order_id);
+    ADD CONSTRAINT fk_orders_manager_id FOREIGN KEY (manager_id) REFERENCES managers(manager_id);
+ALTER TABLE orders
+    ADD CONSTRAINT fk_orders_client_id FOREIGN KEY (client_id) REFERENCES clients(client_id);
+ALTER TABLE orders
+    ADD CONSTRAINT fk_orders_delivery_id FOREIGN KEY (delivery_id) REFERENCES deliveries(delivery_id);
+ALTER TABLE orders_products
+    ADD CONSTRAINT fk_orders_products_order_id FOREIGN KEY (order_id) REFERENCES orders(order_id);
+ALTER TABLE orders_products
+    ADD CONSTRAINT fk_orders_products_product_id FOREIGN KEY (product_id) REFERENCES products(product_id);
 ALTER TABLE products
-    ADD CONSTRAINT products_fk0 FOREIGN KEY (product_id) REFERENCES orders_products(product_id);
-ALTER TABLE categories
-    ADD CONSTRAINT categories_fk0 FOREIGN KEY (category_id) REFERENCES products(category_id);
-ALTER TABLE shippers
-    ADD CONSTRAINT shippers_fk0 FOREIGN KEY (shipper_id) REFERENCES shippers_supplies(shipper_id);
+    ADD CONSTRAINT fk_products_category_id FOREIGN KEY (category_id) REFERENCES categories(category_id);
 ALTER TABLE supplies
-    ADD CONSTRAINT supplies_fk0 FOREIGN KEY (product_id) REFERENCES products(product_id);
+    ADD CONSTRAINT fk_supplies_product_id FOREIGN KEY (product_id) REFERENCES products(product_id);
 ALTER TABLE shippers_supplies
-    ADD CONSTRAINT shippers_supplies_fk0 FOREIGN KEY (shipper_id) REFERENCES deliveries(shipper_id);
+    ADD CONSTRAINT fk_shippers_supplies_supply_id FOREIGN KEY (supply_id) REFERENCES supplies(supply_id);
 ALTER TABLE shippers_supplies
-    ADD CONSTRAINT shippers_supplies_fk1 FOREIGN KEY (supply_id) REFERENCES supplies(supply_id);
-ALTER TABLE managers
-    ADD CONSTRAINT managers_fk0 FOREIGN KEY (manager_id) REFERENCES orders(manager_id);
-ALTER TABLE clients
-    ADD CONSTRAINT clients_fk0 FOREIGN KEY (client_id) REFERENCES orders(client_id);
-ALTER TABLE deliveries
-    ADD CONSTRAINT deliveries_fk0 FOREIGN KEY (delivery_id) REFERENCES orders(delivery_id);
+    ADD CONSTRAINT fk_shippers_supplies_shipper_id FOREIGN KEY (shipper_id) REFERENCES shippers(shipper_id);
