@@ -19,7 +19,7 @@ CREATE TABLE shop.products (
     category_id   INTEGER  NOT NULL,
     description   TEXT     NOT NULL,
     weight        REAL,
-    unit          INTEGER,
+    unit          VARCHAR(10),
     product_code  INTEGER
 );
 ALTER TABLE ONLY shop.products
