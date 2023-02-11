@@ -100,20 +100,20 @@ ALTER TABLE ONLY shop.deliveries
 
 -- Create foreign keys
 ALTER TABLE shop.orders
-    ADD CONSTRAINT fk_orders_manager_id FOREIGN KEY (manager_id) REFERENCES managers(manager_id);
+    ADD CONSTRAINT fk_orders_manager_id FOREIGN KEY (manager_id) REFERENCES shop.managers(manager_id);
 ALTER TABLE shop.orders
-    ADD CONSTRAINT fk_orders_client_id FOREIGN KEY (client_id) REFERENCES clients(client_id);
+    ADD CONSTRAINT fk_orders_client_id FOREIGN KEY (client_id) REFERENCES shop.clients(client_id);
 ALTER TABLE shop.orders
-    ADD CONSTRAINT fk_orders_delivery_id FOREIGN KEY (delivery_id) REFERENCES deliveries(delivery_id);
+    ADD CONSTRAINT fk_orders_delivery_id FOREIGN KEY (delivery_id) REFERENCES shop.deliveries(delivery_id);
 ALTER TABLE shop.orders_products
-    ADD CONSTRAINT fk_orders_products_order_id FOREIGN KEY (order_id) REFERENCES orders(order_id);
+    ADD CONSTRAINT fk_orders_products_order_id FOREIGN KEY (order_id) REFERENCES shop.orders(order_id);
 ALTER TABLE shop.orders_products
-    ADD CONSTRAINT fk_orders_products_product_id FOREIGN KEY (product_id) REFERENCES products(product_id);
+    ADD CONSTRAINT fk_orders_products_product_id FOREIGN KEY (product_id) REFERENCES shop.products(product_id);
 ALTER TABLE shop.products
-    ADD CONSTRAINT fk_products_category_id FOREIGN KEY (category_id) REFERENCES categories(category_id);
+    ADD CONSTRAINT fk_products_category_id FOREIGN KEY (category_id) REFERENCES shop.categories(category_id);
 ALTER TABLE shop.supplies
-    ADD CONSTRAINT fk_supplies_product_id FOREIGN KEY (product_id) REFERENCES products(product_id);
+    ADD CONSTRAINT fk_supplies_product_id FOREIGN KEY (product_id) REFERENCES shop.products(product_id);
 ALTER TABLE shop.shippers_supplies
-    ADD CONSTRAINT fk_shippers_supplies_supply_id FOREIGN KEY (supply_id) REFERENCES supplies(supply_id);
+    ADD CONSTRAINT fk_shippers_supplies_supply_id FOREIGN KEY (supply_id) REFERENCES shop.supplies(supply_id);
 ALTER TABLE shop.shippers_supplies
-    ADD CONSTRAINT fk_shippers_supplies_shipper_id FOREIGN KEY (shipper_id) REFERENCES shippers(shipper_id);
+    ADD CONSTRAINT fk_shippers_supplies_shipper_id FOREIGN KEY (shipper_id) REFERENCES shop.shippers(shipper_id);
