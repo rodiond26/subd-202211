@@ -11,6 +11,7 @@
 * [HW05](./hw05/README.md)
 * [HW06](./hw06/README.md)
 * [HW07](./hw07/README.md)
+* [HW08](./hw08/README.md)
 
 ---
 #### MySQL
