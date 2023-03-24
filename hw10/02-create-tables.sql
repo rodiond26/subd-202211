@@ -11,7 +11,7 @@ CREATE TABLE shop.orders (
     client_id        INTEGER UNSIGNED NOT NULL,
     description      VARCHAR(255),
     delivery_id      INTEGER UNSIGNED NOT NULL
-) ENGINE = InnoDB;
+);
 
 CREATE TABLE shop.products (
     product_id    INTEGER UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -20,14 +20,15 @@ CREATE TABLE shop.products (
     description   VARCHAR(255),
     weight        REAL(9, 3),
     unit          ENUM('кг', 'уп', 'коробка', 'г', 'пачка', 'мешок', 'шт', 'упаковка', 'бут', '-'),
-    product_code  INTEGER UNSIGNED NOT NULL
-) ENGINE = InnoDB;
+    product_code  INTEGER UNSIGNED NOT NULL,
+    attributes    JSON
+);
 
 CREATE TABLE shop.categories (
     category_id  INTEGER UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     parent_id    INTEGER UNSIGNED NOT NULL,
     description  VARCHAR(255)
-) ENGINE = InnoDB;
+);
 
 CREATE TABLE shop.orders_products (
     id          INTEGER UNSIGNED AUTO_INCREMENT PRIMARY KEY,
